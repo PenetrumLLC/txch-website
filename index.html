@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-logo"><span class="title-text-shine">Tech()</span></a>
+            <div class="nav-links">
+                <a href="#about"><span class="title-text-shine">About</span></a>
+                <a href="#skills"><span class="title-text-shine">Skills</span></a>
+                <a href="#contact"><span class="title-text-shine">Contact</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <canvas id="particles-canvas"></canvas>
+    <canvas id="webgl-background"></canvas>
+
+    <div class="container">
+        <section class="hero-section">
+            <div class="hero-left stagger-fade-in">
+                <div class="hero-header">
+                    <div class="profile-img-container">
+                        <img src="./assets/profile.png" alt="Profile Picture" class="profile-img">
+                    </div>
+                    <div class="hero-text">
+                        <h1 class="title-text">Hello visitor<br>I'm <span class="title-text-shine">Tech</span></h1>
+                        <p class="subtitle">Detection Engineer & Malware Analyst</p>
+                    </div>
+                </div>
+                <p class="hero-description">
+                    I'm an 18-year-old Greek-Albanian developer based in Sweden, specializing in cheat detection and analysis. 
+                    Currently expanding my expertise into Detection Engineering and Malware Analysis.
+                </p>
+            </div>
+            
+            <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <defs>
+                    <linearGradient id="fade" x1="100%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color: #2b99ff; stop-opacity: 1" />
+                        <stop offset="100%" style="stop-color: #2b99ff; stop-opacity: 0" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#fade)" fill-opacity="1" d="M0,96C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1440,112L1440,320L0,320Z"></path>
+            </svg>
+
+            <div class="floating-icons">
+                <i class="fab fa-react"></i>
+                <i class="fab fa-node-js"></i>
+                <i class="fab fa-python"></i>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="section-title">
+                <h2><span class="title-text-shine">About Me</span></h2>
+                <p>Get to know me better</p>
+            </div>
+            <div class="about-content">
+                <p>
+                    I currently work for StormSS, an automated detection tool designed to identify cheats on suspects' computers 
+                    for the game FiveM. I play a key role in its development and detection methodologies, continuously improving 
+                    its capabilities.
+                </p>
+                <p>
+                    I've also contributed to major FiveM servers like TMFRZ and MighettoRZ, serving as Head Account Reviewer 
+                    and Account Reviewer Management, where I helped remove cheaters and maintain server integrity.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="section-title">
+                <h2><span class="title-text-shine">Skills</span></h2>
+                <p>Areas of Expertise</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <i class="fas fa-shield-alt skill-icon"></i>
+                        <span class="skill-name">Cheat Detection</span>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-level-fill" style="width: 95%"></div>
+                    </div>
+                    <div class="skill-tags">
+                        <span>Pattern Analysis</span>
+                        <span>Memory Scanning</span>
+                        <span>Anti-Cheat Development</span>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <i class="fas fa-search skill-icon"></i>
+                        <span class="skill-name">Detection Engineering</span>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-level-fill" style="width: 90%"></div>
+                    </div>
+                    <div class="skill-tags">
+                        <span>Threat Detection</span>
+                        <span>Security Monitoring</span>
+                        <span>Alert Development</span>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <i class="fas fa-bug skill-icon"></i>
+                        <span class="skill-name">Cheat Analysis</span>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-level-fill" style="width: 85%"></div>
+                    </div>
+                    <div class="skill-tags">
+                        <span>Memory Analysis</span>
+                        <span>Cheat Detection</span>
+                        <span>Pattern Recognition</span>
+                        <span>Anti-Cheat Systems</span>
+                        <span>Behavior Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-title">
+                <h2><span class="title-text-shine">Contact Me</span></h2>
+                <p>Let's connect on Discord</p>
+            </div>
+            
+            <div class="contact-section">
+                <p>Feel free to reach out to me on Discord for any inquiries or collaboration opportunities!</p>
+                <a href="https://discord.com/users/268826493377839106" target="_blank" class="discord-btn">
+                    <i class="fab fa-discord"></i>
+                    <span class="default-text">Message me on Discord</span>
+                    <span class="hover-text">Let's chat!</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="views-counter">
+        <i class="fas fa-eye"></i> <span id="viewCount">0</span> views
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Me</h3>
+                <p>A passionate tech student exploring the world of software development and creating innovative solutions.</p>
+                <div class="footer-social">
+                    <a href="https://x.com/txchnologyy?s=21" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://youtube.com/channel/UCSicB4SjgYhabVxl84XKkdQ" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://instagram.com/tai.eth" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="https://discord.com/users/268826493377839106" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tech. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="./assets/main.js"></script>
+</body>
+</html>
