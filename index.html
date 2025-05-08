@@ -3,184 +3,951 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="./assets/styles.css">
+    <title>Tech | Cyber Security Expert</title>
+    <style>
+        :root {
+            --baby-blue: #89CFF0;
+            --gray: #333333;
+            --light-gray: #555555;
+            --black: #111111;
+            --neon-green: #39FF14;
+            --dark-blue: #1a1a2e;
+            --alert-red: #ff3860;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Enhanced animated background grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--gray) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gray) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.15;
+            z-index: -1;
+            animation: gridPulse 15s infinite alternate;
+        }
+
+        @keyframes gridPulse {
+            0% { background-size: 40px 40px; }
+            50% { background-size: 42px 42px; }
+            100% { background-size: 40px 40px; }
+        }
+
+        /* Digital noise overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--baby-blue);
+            text-shadow: 0 0 10px var(--baby-blue);
+            animation: logoPulse 2s infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            0% { text-shadow: 0 0 5px var(--baby-blue), 0 0 15px var(--baby-blue); }
+            100% { text-shadow: 0 0 10px var(--baby-blue), 0 0 30px var(--baby-blue); }
+        }
+
+        .logo::before {
+            content: "[";
+            color: var(--neon-green);
+            margin-right: 5px;
+            animation: bracketBlink 1.5s infinite;
+        }
+
+        .logo::after {
+            content: "]";
+            color: var(--neon-green);
+            margin-left: 5px;
+            animation: bracketBlink 1.5s infinite;
+        }
+
+        @keyframes bracketBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--baby-blue);
+            box-shadow: 0 0 5px var(--baby-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--baby-blue);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-text {
+            max-width: 50%;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            letter-spacing: 2px;
+            animation: glitchText 5s infinite;
+        }
+
+        @keyframes glitchText {
+            0%, 100% { transform: none; }
+            92% { transform: skew(0.3deg, 0deg); }
+            93% { transform: skew(-0.3deg, 0deg); }
+            94% { transform: skew(0.3deg, 0deg); }
+            95% { transform: skew(-0.3deg, 0deg); }
+            96% { transform: skew(0.2deg, 0deg); }
+            97% { transform: skew(-0.2deg, 0deg); }
+        }
+
+        .hero-text h1:before {
+            content: "< ";
+            color: var(--baby-blue);
+            text-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        .hero-text h1:after {
+            content: " />";
+            color: var(--baby-blue);
+            text-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+
+        /* Country flags with glowing effect */
+        .hero-text p:nth-of-type(2) {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .country-flag {
+            display: inline-block;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
+            transition: all 0.3s ease;
+        }
+
+        .country-flag:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9));
+        }
+
+        .cta-button {
+            background-color: transparent;
+            color: var(--baby-blue);
+            border: 2px solid var(--baby-blue);
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        .cta-button:hover {
+            background-color: var(--baby-blue);
+            color: var(--black);
+            box-shadow: 0 0 20px var(--baby-blue);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            z-index: -1;
+            transition: all 0.8s ease;
+        }
+
+        .cta-button:hover::before {
+            transform: rotate(45deg) translateX(80%);
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 3px solid var(--baby-blue);
+            box-shadow: 0 0 15px var(--baby-blue);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            animation: profileGlow 4s infinite alternate;
+        }
+
+        @keyframes profileGlow {
+            0% { box-shadow: 0 0 15px var(--baby-blue); }
+            100% { box-shadow: 0 0 25px var(--baby-blue), 0 0 40px rgba(137, 207, 240, 0.5); }
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-pic::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(137, 207, 240, 0.15) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Terminal effect */
+        .terminal {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            font-family: 'Courier New', monospace;
+            margin-top: 2rem;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(180deg, rgba(30, 30, 30, 0.5) 0%, rgba(10, 10, 10, 0.8) 100%);
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-button:hover {
+            transform: scale(1.2);
+        }
+
+        .terminal-red {
+            background-color: #ff5f56;
+            box-shadow: 0 0 3px #ff5f56;
+        }
+
+        .terminal-yellow {
+            background-color: #ffbd2e;
+            box-shadow: 0 0 3px #ffbd2e;
+        }
+
+        .terminal-green {
+            background-color: #27c93f;
+            box-shadow: 0 0 3px #27c93f;
+        }
+
+        .terminal-title {
+            color: #cccccc;
+            font-size: 0.8rem;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .terminal-body {
+            color: white;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .command-line {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .command-prompt {
+            color: var(--neon-green);
+            margin-right: 0.5rem;
+            animation: blinkCursor 1s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .command-text {
+            flex-grow: 1;
+        }
+
+        .command-output {
+            color: #cccccc;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        /* Typing animation */
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid var(--neon-green);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blinkCursor 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Skills section */
+        .section {
+            padding: 5rem 10%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: white;
+            letter-spacing: 3px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background-color: var(--baby-blue);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        .section::before {
+            content: attr(id);
+            position: absolute;
+            opacity: 0.03;
+            font-size: 15rem;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+            text-transform: uppercase;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: rgba(51, 51, 51, 0.7);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            width: 300px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(137, 207, 240, 0.1) 0%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--baby-blue);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-card h3 {
+            color: var(--baby-blue);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .skill-card h3::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            color: var(--neon-green);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover h3::before {
+            opacity: 1;
+            left: -20px;
+        }
+
+        .skill-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Projects section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: rgba(51, 51, 51, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border: 1px solid var(--light-gray);
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--baby-blue), transparent);
+            transition: height 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--baby-blue);
+        }
+
+        .project-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background-color: rgba(137, 207, 240, 0.2);
+            color: var(--baby-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .tech-tag:hover {
+            background-color: rgba(137, 207, 240, 0.4);
+            border-color: var(--baby-blue);
+            transform: scale(1.05);
+        }
+
+        /* Contact section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(51, 51, 51, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at bottom right,
+                rgba(137, 207, 240, 0.1),
+                transparent 70%
+            );
+            z-index: -1;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--baby-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact-info a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--baby-blue);
+            transition: width 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            text-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        .contact-info a:hover::after {
+            width: 100%;
+        }
+
+        /* Security alert bar */
+        .security-alert {
+            background-color: rgba(20, 20, 30, 0.9);
+            border-left: 4px solid var(--alert-red);
+            padding: 1rem;
+            margin-top: 2rem;
+            position: relative;
+            border-radius: 0 5px 5px 0;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .security-alert::before {
+            content: "!";
+            font-size: 1.5rem;
+            color: var(--alert-red);
+            margin-right: 10px;
+            font-weight: bold;
+            animation: alertPulse 1.5s infinite;
+        }
+        
+        @keyframes alertPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .security-alert p {
+            font-size: 0.9rem;
+            margin: 0;
+            white-space: nowrap;
+            animation: scrollAlert 20s linear infinite;
+        }
+        
+        @keyframes scrollAlert {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: #cccccc;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .footer-binary {
+            font-size: 0.7rem;
+            opacity: 0.3;
+            margin-top: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .glow-text {
+            color: var(--baby-blue);
+            text-shadow: 0 0 10px var(--baby-blue);
+        }
+
+        /* Data stream effect */
+        .data-stream {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .data-line {
+            position: absolute;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--baby-blue), transparent);
+            opacity: 0.3;
+            top: -50%;
+            height: 30%;
+            animation: dataFlow 10s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(400%); }
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 3rem 5%;
+            }
+
+            .hero-text {
+                max-width: 100%;
+                margin-bottom: 3rem;
+            }
+
+            .section {
+                padding: 3rem 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                margin-top: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-content">
-            <a href="#" class="nav-logo"><span class="title-text-shine">Tech()</span></a>
-            <div class="nav-links">
-                <a href="#about"><span class="title-text-shine">About</span></a>
-                <a href="#skills"><span class="title-text-shine">Skills</span></a>
-                <a href="#contact"><span class="title-text-shine">Contact</span></a>
-            </div>
-        </div>
-    </nav>
-
-    <canvas id="particles-canvas"></canvas>
-    <canvas id="webgl-background"></canvas>
-
     <div class="container">
-        <section class="hero-section">
-            <div class="hero-left stagger-fade-in">
-                <div class="hero-header">
-                    <div class="profile-img-container">
-                        <img src="./assets/profile.png" alt="Profile Picture" class="profile-img">
-                    </div>
-                    <div class="hero-text">
-                        <h1 class="title-text">Hello visitor<br>I'm <span class="title-text-shine">Tech</span></h1>
-                        <p class="subtitle">Cheat Analyst & Windows Forensics</p>
-                    </div>
-                </div>
-                <p class="hero-description">
-                    I'm an 18-year-old Greek-Albanian developer based in Sweden, specializing in Cheat Detection and DFIR. 
-                    Currently expanding my expertise into Detection Engineering and Malware Analysis.
-                </p>
-            </div>
-            
-            <svg class="hero-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <defs>
-                    <linearGradient id="fade" x1="100%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color: #2b99ff; stop-opacity: 1" />
-                        <stop offset="100%" style="stop-color: #2b99ff; stop-opacity: 0" />
-                    </linearGradient>
-                </defs>
-                <path fill="url(#fade)" fill-opacity="1" d="M0,96C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1440,112L1440,320L0,320Z"></path>
-            </svg>
+        <!-- Background grid -->
+        <div class="bg-grid"></div>
+        <div class="noise-overlay"></div>
+        
+        <!-- Data stream effect -->
+        <div class="data-stream">
+            <div class="data-line" style="left: 20%; animation-delay: 0s; animation-duration: 8s;"></div>
+            <div class="data-line" style="left: 40%; animation-delay: 2s; animation-duration: 10s;"></div>
+            <div class="data-line" style="left: 60%; animation-delay: 1s; animation-duration: 7s;"></div>
+            <div class="data-line" style="left: 80%; animation-delay: 3s; animation-duration: 12s;"></div>
+            <div class="data-line" style="left: 10%; animation-delay: 5s; animation-duration: 9s;"></div>
+            <div class="data-line" style="left: 90%; animation-delay: 4s; animation-duration: 11s;"></div>
+        </div>
 
-            <div class="floating-icons">
-                <i class="fab fa-react"></i>
-                <i class="fab fa-node-js"></i>
-                <i class="fab fa-python"></i>
-            </div>
-        </section>
-
-        <section id="about">
-            <div class="section-title">
-                <h2><span class="title-text-shine">About Me</span></h2>
-                <p>Get to know me better</p>
-            </div>
-            <div class="about-content">
-                <p>
-                    I currently work for StormSS, an automated detection tool designed to identify cheats on suspects' computers 
-                    for the game FiveM. I play a key role in its development and detection methodologies, continuously improving 
-                    its capabilities.
-                </p>
-                <p>
-                    I've also contributed to major FiveM servers like TMFRZ and MighettoRZ, serving as Head Account Reviewer 
-                    and Account Reviewer Management, where I helped remove cheaters and maintain server integrity.
-                </p>
-            </div>
-        </section>
-
-        <section id="skills">
-            <div class="section-title">
-                <h2><span class="title-text-shine">Skills</span></h2>
-                <p>Areas of Expertise</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <i class="fas fa-shield-alt skill-icon"></i>
-                        <span class="skill-name">Cheat Detection</span>
-                    </div>
-                    <div class="skill-level">
-                        <div class="skill-level-fill" style="width: 95%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Pattern Analysis</span>
-                        <span>Memory Scanning</span>
-                        <span>Anti-Cheat Development</span>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <i class="fas fa-search skill-icon"></i>
-                        <span class="skill-name">Detection Engineering</span>
-                    </div>
-                    <div class="skill-level">
-                        <div class="skill-level-fill" style="width: 90%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Threat Detection</span>
-                        <span>Security Monitoring</span>
-                        <span>Alert Development</span>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <i class="fas fa-bug skill-icon"></i>
-                        <span class="skill-name">Windows Forensics</span>
-                    </div>
-                    <div class="skill-level">
-                        <div class="skill-level-fill" style="width: 85%"></div>
-                    </div>
-                    <div class="skill-tags">
-                        <span>Memory Forensics</span>
-                        <span>Artifact Collection</span>
-                        <span>NTFS & FAT Analysis</span>
-                        <span>EventLog & Registry Analysis</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="section-title">
-                <h2><span class="title-text-shine">Contact Me</span></h2>
-                <p>Let's connect on Discord</p>
-            </div>
-            
-            <div class="contact-section">
-                <p>Feel free to reach out to me on Discord for any inquiries or collaboration opportunities!</p>
-                <a href="https://discord.com/users/268826493377839106" target="_blank" class="discord-btn">
-                    <i class="fab fa-discord"></i>
-                    <span class="default-text">Message me on Discord</span>
-                    <span class="hover-text">Let's chat!</span>
-                </a>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Me</h3>
-                <p>A passionate tech student exploring the world of software development and creating innovative solutions.</p>
-                <div class="footer-social">
-                    <a href="https://x.com/txchnologyy?s=21" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://youtube.com/channel/UCSicB4SjgYhabVxl84XKkdQ" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://instagram.com/tai.eth" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#about">About</a></li>
+        <!-- Header -->
+        <header>
+            <div class="logo">Tech<span>.</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
                     <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+            </nav>
+        </header>
+
+        <!-- Hero section -->
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <h1>Tech</h1>
+                <p>Detection Engenieering | Forensics | Malware Analyst</p>
+                <p>From Albania <span class="country-flag">🇦🇱</span> • Based in Sweden <span class="country-flag">🇸🇪</span> • Age: 18</p>
+                <a href="#projects" class="cta-button">View My Projects</a>
+                
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-button terminal-red"></div>
+                        <div class="terminal-button terminal-yellow"></div>
+                        <div class="terminal-button terminal-green"></div>
+                        <div class="terminal-title">tech@stormss.cc ~ </div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="command-line">
+                            <span class="command-prompt">$</span>
+                            <span class="command-text">whoami</span>
+                        </div>
+                        <div class="command-output">
+                            Forensic Investigator | Detection Engineer | Malware Analyst
+                        </div>
+                        <div class="command-line">
+                            <span class="command-prompt">$</span>
+                            <span class="command-text">cat skills.txt</span>
+                        </div>
+                        <div class="command-output">
+                            DFIR, Detection Engineering, Stundent Reverse Engineer, 
+                            Static & Dynamic Malware Analysis, Python
+                        </div>
+                        <div class="command-line">
+                            <span class="command-prompt">$</span>
+                            <span class="command-text typing-animation">ping tech</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="security-alert">
+                    <p>Security Alert: A New Tech Variant Detected in the Wild | CVE-2025-7281 patch non-available | Exploit targeting critical systems | Stay vigilant and monitor your environment closely.</p>
+                </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul class="footer-links">
-                    <li><a href="https://discord.com/users/268826493377839106" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
-                </ul>
+            <div class="profile-pic">
+                <img src="https://cdn.discordapp.com/attachments/1136036988919742504/1370081881881841724/IMG_0116.png?ex=681e33af&is=681ce22f&hm=242b0fb4473ac2b52b0bda4938e5212e61c27107f70576c9f73aef427a762173&" alt="Tech's Profile">
             </div>
-        </div>
+        </section>
+
+        <!-- Skills section -->
+        <section class="section" id="skills">
+            <h2 class="section-title">My Expertise</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>Digital Forensics & Incident Response</h3>
+                    <p>Specialized in investigating bypass attempts, collecting and analyzing digital evidence, and developing response strategies.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Detection Engineering</h3>
+                    <p>Creating and implementing automatic detection rules and manual detections to identify malicious activities, remove cheaters, and address threats within Windows machines</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Reverse Engineering</h3>
+                    <p>As a reverse engineering student, I analyze software to understand its structure, uncover vulnerabilities, and enhance security by studying code and binary files.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Malware Analysis</h3>
+                    <p>Performing static and dynamic analysis of malicious software to understand behavior, infection methods, and developing countermeasures.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Python Development</h3>
+                    <p>I'm still improving my Python skills, however, I can create automated detections and tools to help streamline my work and improve operational efficiency.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Forensic Investigation</h3>
+                    <p>I focus on examining personal computers to identify malicious activity. This involves analyzing system logs, identifying for malware, and verifying software integrity to ensure a world free from cheaters.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects section -->
+        <head>
+            <style>
+                .project-link {
+                    background-color: #89CFF0; /* Baby blue color */
+                    color: white; /* Text color */
+                    padding: 6px 12px; /* Reduced padding for a smaller button-like appearance */
+                    border-radius: 5px;
+                    font-size: 17px; /* Smaller font size */
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                    text-decoration: none; /* Remove the underline from the link */
+                    display: inline-block;
+                }
         
-        <div class="footer-bottom">
-            <p>&copy; 2025 Tech. All rights reserved.</p>
-        </div>
-    </footer>
-    <script src="./assets/main.js"></script>
-</body>
-</html>
+                .project-link:hover {
+                    background-color: #7EC8E3; /* Slightly darker baby blue for hover effect */
+                }
+            </style>
+        </head>
+        
+        <!-- Projects section -->
+        <section class="section" id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3><a href="https://github.com/txvch/Screenshare-Collector" target="_blank" class="project-link">Advanced Threat Detection System</a></h3>
+                    <p>Developed an automated system for analyzing suspicious files using static analysis techniques like YARA rules, entropy checks, and signature verification.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Windows</span>
+                        <span class="tech-tag">YARA</span>
+                        <span class="tech-tag">PE Analysis</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3><a href="https://stormss.cc/" target="_blank" class="project-link">StormSS</a></h3>
+                    <p>Contributed in developing StormSS, a FiveM scanner that detects cheat activities by analyzing system processes, file integrity, suspicious behaviors in real-time and post-session analysis and more...</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">YARA</span>
+                        <span class="tech-tag">FiveM</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Cheat Detection</span>
+                        <span class="tech-tag">Automation</span>                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        
