@@ -3,58 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech - the goat</title>
+    <title>Tech - Bio</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="bio-page">
+    <!-- Main Bio Page -->
+    <div id="bio-page" class="bio-page">
+        <!-- Background Video -->
         <div class="bio-background">
-            <video class="background-video" autoplay muted loop>
-                <source src="uVzwnqq.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline class="background-video">
+                <source src="https://github.com/txchnology/test/releases/download/video/uVzwnqq.mp4" type="video/mp4">
             </video>
         </div>
         
+        <!-- Main Content Container -->
         <div class="bio-content">
+            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-picture">
-                    <img src="https://cdn.discordapp.com/avatars/268826493377839106/a2867602c226c6edd46296d0a653a032.png?size=1024" alt="Profile Picture">
-                    <div class="status-indicator online">
-                        <i class="fas fa-circle"></i>
+                    <img src="https://cdn.discordapp.com/avatars/268826493377839106/30c03c4bfa97dc6249aebb789ed4b280.webp" alt="Profile Picture" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                    <div class="status-indicator idle">
+                        <i class="fas fa-moon"></i>
                     </div>
                 </div>
-                <div class="username">Tech</div>
-                <div class="bio-text">Software Developer & Content Creator</div>
+                <h2 class="username">tech</h2>
+                <p class="bio-text" id="time-display">Loading time...</p>
             </div>
 
+            <!-- Header Section -->
             <div class="header">
+                <h1 class="title">Tech</h1>
                 <div class="location">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>United States</span>
+                    <span>Stockholm, Sweden</span>
                 </div>
             </div>
 
+            <!-- Quote Section -->
             <div class="quote-section">
-                <div class="quote" id="quote">"Did I not tell you that if you believe, you will see the glory of God?"</div>
-                <div class="quote-author">John 11:40</div>
+                <p class="quote">"Believe, and you will witness the incredible glory of God unfold in your life."</p>
+                <p class="quote-author">- John 11:40</p>
             </div>
 
+            <!-- Social Links -->
             <div class="social-links">
-                <a href="https://discord.gg/sWeYyBKhFW" target="_blank" class="social-icon discord">
+                <a href="https://discord.com/users/268826493377839106" target="_blank" class="social-icon discord">
                     <i class="fab fa-discord"></i>
                 </a>
-                <a href="https://www.youtube.com/@txvch" target="_blank" class="social-icon youtube">
+                <a href="https://www.youtube.com/@txqh" target="_blank" class="social-icon youtube">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a href="https://github.com/txvch" target="_blank" class="social-icon github">
+                <a href="https://github.com/txchnology" target="_blank" class="social-icon github">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://www.instagram.com/txvch/" target="_blank" class="social-icon instagram">
+                <a href="https://instagram.com/tai.eth" target="_blank" class="social-icon instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
 
+            <!-- Spotify Section -->
             <div class="spotify-section">
                 <div class="spotify-container">
                     <div class="spotify-header">
@@ -70,6 +79,7 @@
                 </div>
             </div>
 
+            <!-- Discord Section -->
             <div class="discord-section">
                 <div class="discord-container">
                     <div class="discord-header">
@@ -85,9 +95,20 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="title">TECH</div>
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="view-count">
+                <i class="fas fa-eye"></i>
+                <span>1,051</span>
+            </div>
+        </div>
+
+        <!-- Sound Control -->
+        <div class="sound-control">
+            <i class="fas fa-volume-up"></i>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
