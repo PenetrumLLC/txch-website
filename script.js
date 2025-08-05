@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
     // Typing effect for quote
     const quoteElement = document.querySelector('.quote');
     const fullQuote = '"Believe, and you will witness the incredible glory of God unfold in your life."';
@@ -12,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!isDeleting) {
             // Typing
-                            if (currentIndex < fullQuote.length) {
-                    quoteElement.textContent = fullQuote.substring(0, currentIndex + 1) + '|';
-                    currentIndex++;
-                    setTimeout(typeQuote, 65);
+            if (currentIndex < fullQuote.length) {
+                quoteElement.textContent = fullQuote.substring(0, currentIndex + 1) + '|';
+                currentIndex++;
+                setTimeout(typeQuote, 65);
             } else {
                 // Finished typing, wait 5 seconds then start deleting
                 setTimeout(() => {
@@ -25,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             // Deleting
-                            if (currentIndex > 0) {
-                    quoteElement.textContent = fullQuote.substring(0, currentIndex - 1) + '|';
-                    currentIndex--;
-                    setTimeout(typeQuote, 50);
+            if (currentIndex > 0) {
+                quoteElement.textContent = fullQuote.substring(0, currentIndex - 1) + '|';
+                currentIndex--;
+                setTimeout(typeQuote, 50);
             } else {
                 // Finished deleting, wait 1 second then start typing again
                 isDeleting = false;
@@ -318,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Try multiple approaches to get Discord server data
             try {
                 // Approach 1: Try using your Python bot API (most reliable)
-                const BOT_API_URL = 'http://localhost:5000/api/server-stats'; // Update with your bot's URL
+                const BOT_API_URL = 'http://192.168.0.104:5000/api/server-stats'; // Update with your bot's URL
                 
                 try {
                     const botResponse = await fetch(BOT_API_URL, {
