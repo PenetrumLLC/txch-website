@@ -154,34 +154,28 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const data = await response.json();
                 displaySpotifyData(data);
-            } else {
-                // Fallback: show a simple message with your Spotify profile link
-                spotifyContent.innerHTML = `
-                    <div class="spotify-current">
-                        <div class="spotify-not-playing">
-                            <i class="fas fa-music"></i>
-                            <span>Check my Spotify profile</span>
-                        </div>
-                        <a href="https://open.spotify.com/user/31m6hiz4tf7ka3bwwcb6xny2j7ke" target="_blank" class="spotify-link">
-                            <i class="fab fa-spotify"></i> Open Spotify Profile
-                        </a>
-                    </div>
-                `;
-            }
-        } catch (error) {
-            console.error('Spotify API error:', error);
-            // Show your Spotify profile link
-            spotifyContent.innerHTML = `
-                <div class="spotify-current">
-                    <div class="spotify-not-playing">
-                        <i class="fas fa-music"></i>
-                        <span>Check my Spotify profile</span>
-                    </div>
-                    <a href="https://open.spotify.com/user/31m6hiz4tf7ka3bwwcb6xny2j7ke" target="_blank" class="spotify-link">
-                        <i class="fab fa-spotify"></i> Open Spotify Profile
-                    </a>
-                </div>
-            `;
+                         } else {
+                 // Fallback: show a simple message
+                 spotifyContent.innerHTML = `
+                     <div class="spotify-current">
+                         <div class="spotify-not-playing">
+                             <i class="fas fa-music"></i>
+                             <span>Not currently playing</span>
+                         </div>
+                     </div>
+                 `;
+             }
+         } catch (error) {
+             console.error('Spotify API error:', error);
+             // Show simple message
+             spotifyContent.innerHTML = `
+                 <div class="spotify-current">
+                     <div class="spotify-not-playing">
+                         <i class="fas fa-music"></i>
+                         <span>Not currently playing</span>
+                     </div>
+                 </div>
+             `;
         }
     }
     
@@ -199,24 +193,19 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="spotify-artist">${track.artists[0].name}</div>
                         </div>
                     </div>
-                    <a href="https://open.spotify.com/user/31m6hiz4tf7ka3bwwcb6xny2j7ke" target="_blank" class="spotify-link">
-                        <i class="fab fa-spotify"></i> Open Spotify
-                    </a>
+                    
                 </div>
             `;
-        } else {
-            // Not currently playing
-            spotifyContent.innerHTML = `
-                <div class="spotify-current">
-                    <div class="spotify-not-playing">
-                        <i class="fas fa-music"></i>
-                        <span>Not currently playing</span>
-                    </div>
-                    <a href="https://open.spotify.com/user/31m6hiz4tf7ka3bwwcb6xny2j7ke" target="_blank" class="spotify-link">
-                        <i class="fab fa-spotify"></i> Open Spotify
-                    </a>
-                </div>
-            `;
+                 } else {
+             // Not currently playing
+             spotifyContent.innerHTML = `
+                 <div class="spotify-current">
+                     <div class="spotify-not-playing">
+                         <i class="fas fa-music"></i>
+                         <span>Not currently playing</span>
+                     </div>
+                 </div>
+             `;
         }
     }
     
