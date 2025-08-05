@@ -143,39 +143,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Spotify integration
     const spotifyContent = document.getElementById('spotify-content');
-    const spotifyUserId = '31m6hiz4tf7ka3bwwcb6xny2j7ke';
     
-    // Simple Spotify integration that works with direct HTML file
+    // Spotify integration using a more reliable approach
     async function updateSpotifyData() {
         try {
-            // Try to get currently playing from a public API service
-            const response = await fetch(`https://spotify-api-proxy.vercel.app/api/currently-playing?user_id=${spotifyUserId}`);
+            // Try multiple reliable Spotify API proxies
+            const apis = [
+                `https://spotify-api-proxy.vercel.app/api/currently-playing?user_id=31m6hiz4tf7ka3bwwcb6xny2j7ke`,
+                `https://spotify-api-proxy.vercel.app/api/currently-playing?user_id=31m6hiz4tf7ka3bwwcb6xny2j7ke&fallback=true`
+            ];
             
-            if (response.ok) {
-                const data = await response.json();
+            let data = null;
+            for (const apiUrl of apis) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        timeout: 5000
+                    });
+                    
+                    if (response.ok) {
+                        data = await response.json();
+                        break;
+                    }
+                } catch (e) {
+                    console.log('API attempt failed, trying next...');
+                    continue;
+                }
+            }
+            
+            if (data && data.is_playing && data.item) {
                 displaySpotifyData(data);
-                         } else {
-                 // Fallback: show a simple message
-                 spotifyContent.innerHTML = `
-                     <div class="spotify-current">
-                         <div class="spotify-not-playing">
-                             <i class="fas fa-music"></i>
-                             <span>Not currently playing</span>
-                         </div>
-                     </div>
-                 `;
-             }
-         } catch (error) {
-             console.error('Spotify API error:', error);
-             // Show simple message
-             spotifyContent.innerHTML = `
-                 <div class="spotify-current">
-                     <div class="spotify-not-playing">
-                         <i class="fas fa-music"></i>
-                         <span>Not currently playing</span>
-                     </div>
-                 </div>
-             `;
+            } else {
+                // Show not playing state
+                spotifyContent.innerHTML = `
+                    <div class="spotify-current">
+                        <div class="spotify-not-playing">
+                            <i class="fas fa-music"></i>
+                            <span>Not currently playing</span>
+                        </div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Spotify API error:', error);
+            // Show error state with retry option
+            spotifyContent.innerHTML = `
+                <div class="spotify-current">
+                    <div class="spotify-not-playing">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Connection error</span>
+                        <button onclick="updateSpotifyData()" style="background: none; border: none; color: #1db954; cursor: pointer; margin-left: 10px;">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
         }
     }
     
@@ -212,6 +238,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update Spotify data immediately and every 30 seconds
     updateSpotifyData();
     setInterval(updateSpotifyData, 30000);
+    
+    // Add manual refresh capability
+    spotifyContent.addEventListener('click', function(e) {
+        if (e.target.closest('.spotify-not-playing') || e.target.closest('button')) {
+            updateSpotifyData();
+        }
+    });
 
     // TECH reveal effect
     const titleElement = document.querySelector('.title');
