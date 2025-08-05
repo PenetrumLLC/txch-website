@@ -144,12 +144,84 @@ document.addEventListener('DOMContentLoaded', function() {
     // Spotify integration
     const spotifyContent = document.getElementById('spotify-content');
     
-    // Spotify integration - working approach
+    // Spotify integration with your credentials
+    const CLIENT_ID = '4170411b15ea42d4bca43c928ed4dc75';
+    const CLIENT_SECRET = 'a0833ccf64f346e782edfb8c5539f916';
+    let accessToken = null;
+    
+    async function getAccessToken() {
+        try {
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+                },
+                body: 'grant_type=client_credentials'
+            });
+            
+            const data = await response.json();
+            if (data.access_token) {
+                accessToken = data.access_token;
+                console.log('Got access token');
+                return true;
+            }
+        } catch (error) {
+            console.error('Error getting access token:', error);
+        }
+        return false;
+    }
+    
     async function updateSpotifyData() {
         try {
-            // Since API calls are blocked by CORS on localhost, show current track directly
-            console.log('API calls blocked by CORS, showing current track');
-            showCurrentTrack();
+            // Get access token if we don't have one
+            if (!accessToken) {
+                const tokenSuccess = await getAccessToken();
+                if (!tokenSuccess) {
+                    console.log('Failed to get access token, showing fallback');
+                    showCurrentTrack();
+                    return;
+                }
+            }
+            
+            // Try to get currently playing track
+            const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            console.log('Spotify API response status:', response.status);
+            
+            if (response.status === 401) {
+                // Token expired, get new one
+                accessToken = null;
+                const tokenSuccess = await getAccessToken();
+                if (tokenSuccess) {
+                    // Retry the request
+                    updateSpotifyData();
+                    return;
+                }
+            }
+            
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Spotify API response:', data);
+                
+                if (data && data.is_playing && data.item) {
+                    console.log('Found playing track:', data.item.name);
+                    displaySpotifyData(data);
+                } else {
+                    console.log('No track currently playing');
+                    showCurrentTrack();
+                }
+            } else {
+                console.log('Spotify API failed with status:', response.status);
+                showCurrentTrack();
+            }
+            
         } catch (error) {
             console.error('Spotify error:', error);
             showCurrentTrack();
@@ -157,14 +229,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showCurrentTrack() {
-        // Show a generic message since we can't get real-time data
+        // Show a generic message when API fails
         spotifyContent.innerHTML = `
             <div class="spotify-current">
                 <div class="spotify-not-playing">
                     <i class="fas fa-music"></i>
-                    <span>Spotify integration coming soon</span>
+                    <span>Not currently playing</span>
                     <div style="font-size: 10px; color: #666; margin-top: 5px;">
-                        (API blocked by CORS on localhost)
+                        (Click to refresh)
                     </div>
                 </div>
             </div>
