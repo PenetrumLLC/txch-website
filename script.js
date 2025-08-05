@@ -304,136 +304,30 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSpotifyData();
     });
 
-    // Discord Server integration
+    // Discord Server integration - Static display
     const discordContent = document.getElementById('discord-content');
-    const DISCORD_SERVER_ID = '1266369006248394752'; // Your Discord server ID
     
-    async function updateDiscordData() {
-        try {
-            console.log('Fetching Discord server data...');
-            
-            let discordData = null;
-            
-            // Try multiple approaches to get Discord server data
-            try {
-                // Approach 1: Try using your Python bot API (most reliable)
-                const BOT_API_URL = 'http://192.168.0.104:5000/api/server-stats'; // Update with your bot's URL
-                
-                try {
-                    const botResponse = await fetch(BOT_API_URL, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    if (botResponse.ok) {
-                        const botData = await botResponse.json();
-                        console.log('Bot API data:', botData);
-                        
-                        discordData = {
-                            name: botData.name || "Tech's Community",
-                            icon: botData.icon || null,
-                            member_count: botData.member_count || 0,
-                            approximate_member_count: botData.member_count || 0,
-                            approximate_presence_count: botData.online_count || 0,
-                            vanity_url_code: "sWeYyBKhFW"
-                        };
-                        
-                        console.log('Real Discord data fetched from bot API:', discordData);
-                    } else {
-                        console.log('Bot API not accessible, trying widget API...');
-                    }
-                } catch (botError) {
-                    console.log('Bot API not available:', botError.message);
-                }
-                
-                // Approach 2: Try the widget API (if bot API failed)
-                if (!discordData) {
-                    const widgetResponse = await fetch(`https://discord.com/api/v10/guilds/${DISCORD_SERVER_ID}/widget.json`);
-                    
-                    if (widgetResponse.ok) {
-                        const widgetData = await widgetResponse.json();
-                        console.log('Widget data:', widgetData);
-                        
-                        discordData = {
-                            name: widgetData.name,
-                            icon: null,
-                            member_count: widgetData.presence_count || 0,
-                            approximate_member_count: widgetData.presence_count || 0,
-                            approximate_presence_count: widgetData.presence_count || 0,
-                            vanity_url_code: "sWeYyBKhFW"
-                        };
-                        
-                        console.log('Real Discord data fetched from widget:', discordData);
-                    } else {
-                        console.log('Widget API not accessible (403/401) - Enable widget in server settings for real-time data');
-                    }
-                }
-                
-                // Approach 3: Use fallback data if all APIs fail
-                if (!discordData) {
-                    discordData = {
-                        name: "Tech's Community", // Update this with your actual server name
-                        icon: null,
-                        member_count: 150, // Update this with your actual member count
-                        approximate_member_count: 150, // Update this with your actual member count
-                        approximate_presence_count: 23, // Update this with your actual online count
-                        vanity_url_code: "sWeYyBKhFW"
-                    };
-                    
-                    console.log('Using configurable fallback data:', discordData);
-                }
-            } catch (e) {
-                console.log('Discord API error:', e.message);
-                
-                // Use fallback data if all APIs fail
-                discordData = {
-                    name: "Tech's Community",
-                    icon: null,
-                    member_count: 150,
-                    approximate_member_count: 150,
-                    approximate_presence_count: 23,
-                    vanity_url_code: "sWeYyBKhFW"
-                };
-            }
-            
-            // Generate invite URL using your actual invite code
-            const inviteUrl = `https://discord.gg/sWeYyBKhFW`;
-            
-            // Use icon URL directly from API response (it's already a full URL)
-            const iconUrl = discordData.icon || 'https://cdn.discordapp.com/embed/avatars/0.png';
-            
-            // Display Discord server data
-            discordContent.innerHTML = `
-                <div class="discord-server">
-                    <div class="discord-server-icon">
-                        <img src="${iconUrl}" alt="Server Icon" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
-                    </div>
-                    <div class="discord-server-info">
-                        <div class="discord-server-name">${discordData.name}</div>
-                        <div class="discord-server-stats">${discordData.approximate_presence_count || 0} online • ${discordData.approximate_member_count || discordData.member_count || 0} members</div>
-                    </div>
-                    <a href="${inviteUrl}" target="_blank" class="discord-join-button">
-                        Join
-                    </a>
+    function showDiscordServer() {
+        const inviteUrl = 'https://discord.gg/sWeYyBKhFW';
+        const serverIcon = 'https://cdn.discordapp.com/icons/1266369006248394752/a2867602c226c6edd46296d0a653a032.png?size=1024';
+        
+        discordContent.innerHTML = `
+            <div class="discord-server">
+                <div class="discord-server-icon">
+                    <img src="${serverIcon}" alt="Server Icon" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
                 </div>
-            `;
-            
-        } catch (error) {
-            console.error('Discord error:', error);
-            showDiscordNotAvailable();
-        }
+                <div class="discord-server-info">
+                    <div class="discord-server-name">Technical Unity</div>
+                </div>
+                <a href="${inviteUrl}" target="_blank" class="discord-join-button">
+                    Join
+                </a>
+            </div>
+        `;
     }
     
-    // Update Discord data immediately and every 60 seconds
-    updateDiscordData();
-    setInterval(updateDiscordData, 60000);
-    
-    // Add click to refresh functionality for Discord
-    discordContent.addEventListener('click', function() {
-        updateDiscordData();
-    });
+    // Show Discord server immediately
+    showDiscordServer();
 
     // TECH reveal effect
     const titleElement = document.querySelector('.title');
