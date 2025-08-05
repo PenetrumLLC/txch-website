@@ -1,606 +1,470 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-    height: 100vh;
-}
-
-.bio-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bio-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    z-index: -2;
-}
-
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 110%;
-    height: 110%;
-    object-fit: cover;
-    transform: scale(1.1);
-    z-index: -3;
-    opacity: 0.5;
-}
-
-.bio-content {
-    position: relative;
-    z-index: 5;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 3rem;
-    text-align: center;
-    color: white;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: visible;
-}
-
-.profile-section {
-    order: 1;
-    margin-bottom: 0;
-}
-
-.header {
-    order: 2;
-    margin-bottom: 0;
-    position: relative;
-}
-
-.header::after {
-    content: '';
-    position: absolute;
-    bottom: -1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
-}
-
-.quote-section {
-    order: 3;
-    margin-bottom: 0;
-}
-
-.social-links {
-    order: 4;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 0.5rem;
-    position: relative;
-    z-index: 10;
-}
-
-.spotify-section {
-    order: 5;
-    margin-bottom: 0.2rem;
-}
-
-.title {
-    font-size: 12rem;
-    font-weight: 200;
-    margin-bottom: 0;
-    color: transparent;
-    -webkit-text-stroke: 1px transparent;
-    text-stroke: 1px transparent;
-    letter-spacing: 0em;
-    text-transform: uppercase;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    pointer-events: none;
-    user-select: none;
-    width: 100vw;
-    text-align: center;
-}
-
-.title::before {
-    content: 'TECH';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: transparent;
-    -webkit-text-stroke: 1px transparent;
-    text-stroke: 1px transparent;
-    transition: all 0.1s ease;
-}
-
-.title::after {
-    content: 'TECH';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
-    text-stroke: 1px rgba(255, 255, 255, 0.8);
-    mask: radial-gradient(circle 100px at var(--mouse-x, 0px) var(--mouse-y, 0px), 
-                         rgba(255, 255, 255, 1) 0%, 
-                         rgba(255, 255, 255, 0.8) 30%, 
-                         rgba(255, 255, 255, 0.4) 60%, 
-                         rgba(255, 255, 255, 0) 100%);
-    -webkit-mask: radial-gradient(circle 100px at var(--mouse-x, 0px) var(--mouse-y, 0px), 
-                                 rgba(255, 255, 255, 1) 0%, 
-                                 rgba(255, 255, 255, 0.8) 30%, 
-                                 rgba(255, 255, 255, 0.4) 60%, 
-                                 rgba(255, 255, 255, 0) 100%);
-    transition: all 0.1s ease;
-}
-
-.quote {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 200;
-    height: 3.4em;
-    width: 520px;
-    text-align: center;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: 
-        0 0 1px rgba(135, 218, 218, 0.15),
-        0 0 2px rgba(135, 218, 218, 0.12),
-        0 0 3px rgba(135, 218, 218, 0.1),
-        0 0 4px rgba(135, 218, 218, 0.08),
-        0 0 5px rgba(135, 218, 218, 0.06),
-        0 0 6px rgba(135, 218, 218, 0.04),
-        0 0 7px rgba(135, 218, 218, 0.03),
-        0 0 8px rgba(135, 218, 218, 0.02);
-}
-
-.quote-author {
-    font-size: 0.85rem;
-    color: #9ca3af;
-    margin-bottom: 1rem;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: 0.02em;
-}
-
-.location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: #60a5fa;
-    font-weight: 300;
-    text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
-}
-
-.location i {
-    color: #60a5fa;
-    text-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
-}
-
-.profile-section {
-    margin-bottom: 0;
-    position: relative;
-}
-
-.profile-section::after {
-    content: '';
-    position: absolute;
-    bottom: -1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-}
-
-.profile-picture {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 1rem;
-}
-
-.profile-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    object-fit: cover;
-}
-
-.status-indicator {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 3px solid #1a1f2e;
-    background-color: #1a1f2e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.status-indicator i {
-    font-size: 12px;
-    color: #ffffff;
-    line-height: 1;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-}
-
-.status-indicator.online {
-    background-color: #43b581;
-}
-
-.status-indicator.online i {
-    color: #ffffff;
-}
-
-.status-indicator.idle {
-    background-color: #faa61a;
-}
-
-.status-indicator.idle i {
-    color: #ffffff;
-}
-
-.status-indicator.dnd {
-    background-color: #f04747;
-}
-
-.status-indicator.dnd i {
-    color: #ffffff;
-}
-
-.status-indicator.offline {
-    background-color: #747f8d;
-}
-
-.status-indicator.offline i {
-    color: #ffffff;
-}
-
-.username {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-}
-
-.bio-text {
-    font-size: 0.9rem;
-    color: #9ca3af;
-    font-weight: 300;
-}
-
-.social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    color: #9ca3af;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    font-size: 1.1rem;
-    border: 1px solid rgba(156, 163, 175, 0.3);
-    background: transparent;
-}
-
-.social-icon:hover {
-    transform: translateY(-1px);
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-.social-icon.discord:hover {
-    border-color: #5865f2;
-    color: #5865f2;
-}
-
-.social-icon.youtube:hover {
-    border-color: #ff0000;
-    color: #ff0000;
-}
-
-.social-icon.github:hover {
-    border-color: #ffffff;
-    color: #ffffff;
-}
-
-.social-icon.instagram:hover {
-    border-color: #e4405f;
-    color: #e4405f;
-}
-
-.spotify-container {
-    background: rgba(29, 185, 84, 0.1);
-    border: 1px solid rgba(29, 185, 84, 0.2);
-    border-radius: 15px;
-    padding: 1rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.spotify-container:hover {
-    background: rgba(29, 185, 84, 0.15);
-    border-color: rgba(29, 185, 84, 0.3);
-    transform: translateY(-2px);
-}
-
-.spotify-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-    color: #1db954;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.spotify-header i {
-    font-size: 1.1rem;
-}
-
-.spotify-content {
-    text-align: left;
-}
-
-.spotify-loading {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #9ca3af;
-    font-size: 0.85rem;
-}
-
-.spotify-loading i {
-    font-size: 0.8rem;
-}
-
-.spotify-track {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.25rem 0;
-}
-
-.spotify-album-art {
-    flex-shrink: 0;
-}
-
-.spotify-album-art img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.spotify-info {
-    flex: 1;
-    min-width: 0;
-    text-align: left;
-}
-
-.spotify-song {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #ffffff;
-    margin-bottom: 0.1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.spotify-artist {
-    font-size: 0.75rem;
-    color: #9ca3af;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.1rem;
-}
-
-.spotify-duration {
-    font-size: 0.7rem;
-    color: #1db954;
-    font-weight: 500;
-}
-
-.spotify-not-playing {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #9ca3af;
-    font-size: 0.85rem;
-    justify-content: center;
-}
-
-.spotify-not-playing i {
-    color: #1db954;
-    font-size: 1rem;
-}
-
-.discord-section {
-    order: 6;
-    margin-bottom: 0;
-}
-
-.discord-container {
-    background: rgba(114, 137, 218, 0.1);
-    border: 1px solid rgba(114, 137, 218, 0.2);
-    border-radius: 15px;
-    padding: 1rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.discord-container:hover {
-    background: rgba(114, 137, 218, 0.15);
-    border-color: rgba(114, 137, 218, 0.3);
-    transform: translateY(-2px);
-}
-
-.discord-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-    color: #7289da;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.discord-header i {
-    font-size: 1.1rem;
-}
-
-.discord-content {
-    text-align: left;
-}
-
-.discord-loading {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #9ca3af;
-    font-size: 0.85rem;
-}
-
-.discord-loading i {
-    font-size: 0.8rem;
-}
-
-.discord-server {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.25rem 0;
-}
-
-.discord-server-icon {
-    flex-shrink: 0;
-}
-
-.discord-server-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.discord-server-info {
-    flex: 1;
-    min-width: 0;
-    text-align: left;
-}
-
-.discord-server-name {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #ffffff;
-    margin-bottom: 0.1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.discord-server-stats {
-    font-size: 0.75rem;
-    color: #9ca3af;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.1rem;
-}
-
-.discord-join-button {
-    flex-shrink: 0;
-    background: #7289da;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.discord-join-button:hover {
-    background: #5b6eae;
-    transform: translateY(-1px);
-}
-
-.discord-not-available {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #9ca3af;
-    font-size: 0.85rem;
-    justify-content: center;
-}
-
-.discord-not-available i {
-    color: #7289da;
-    font-size: 1rem;
-}
-
-@media (max-width: 768px) {
-    .title {
-        font-size: 3rem;
-        letter-spacing: 0.05em;
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Typing effect for quote
+    const quoteElement = document.querySelector('.quote');
+    const fullQuote = '"Believe, and you will witness the incredible glory of God unfold in your life."';
+    let currentIndex = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+
+    function typeQuote() {
+        if (isWaiting) return;
+        
+        if (!isDeleting) {
+            // Typing
+                            if (currentIndex < fullQuote.length) {
+                    quoteElement.textContent = fullQuote.substring(0, currentIndex + 1) + '|';
+                    currentIndex++;
+                    setTimeout(typeQuote, 65);
+            } else {
+                // Finished typing, wait 5 seconds then start deleting
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeQuote();
+                }, 5000);
+            }
+        } else {
+            // Deleting
+                            if (currentIndex > 0) {
+                    quoteElement.textContent = fullQuote.substring(0, currentIndex - 1) + '|';
+                    currentIndex--;
+                    setTimeout(typeQuote, 50);
+            } else {
+                // Finished deleting, wait 1 second then start typing again
+                isDeleting = false;
+                isWaiting = true;
+                setTimeout(() => {
+                    isWaiting = false;
+                    typeQuote();
+                }, 1000);
+            }
+        }
+    }
+
+    // Start the typing effect
+    typeQuote();
+
+    // Add some interactive effects
+    const socialIcons = document.querySelectorAll('.social-icon');
+    socialIcons.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-1px)';
+        });
+        
+        icon.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Sound control toggle (placeholder for future functionality)
+    const soundControl = document.querySelector('.sound-control');
+    let soundEnabled = true;
+    
+    soundControl.addEventListener('click', function() {
+        soundEnabled = !soundEnabled;
+        const icon = this.querySelector('i');
+        
+        if (soundEnabled) {
+            icon.className = 'fas fa-volume-up';
+        } else {
+            icon.className = 'fas fa-volume-mute';
+        }
+    });
+
+    // Add view count animation
+    const viewCount = document.querySelector('.view-count span');
+    if (viewCount) {
+        const finalCount = 1051;
+        let currentCount = 0;
+        const increment = Math.ceil(finalCount / 50);
+        
+        const counter = setInterval(() => {
+            currentCount += increment;
+            if (currentCount >= finalCount) {
+                currentCount = finalCount;
+                clearInterval(counter);
+            }
+            viewCount.textContent = currentCount.toLocaleString();
+        }, 50);
+    }
+
+    // Add loading animation for profile picture
+    const profileImg = document.querySelector('.profile-picture img');
+    if (profileImg) {
+        profileImg.addEventListener('load', function() {
+            this.style.opacity = '0';
+            this.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                this.style.transition = 'all 0.5s ease';
+                this.style.opacity = '1';
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+    }
+
+    // Discord Status - Set to idle permanently
+    const statusIndicator = document.querySelector('.status-indicator');
+    
+    function setIdleStatus() {
+        statusIndicator.className = 'status-indicator dnd';
+        statusIndicator.innerHTML = '<i class="fas fa-moon"></i>';
     }
     
-    .quote {
-        font-size: 0.9rem;
+    // Set to idle status
+    setIdleStatus();
+
+    // Dynamic time display
+    function updateTimeDisplay() {
+        const timeDisplay = document.getElementById('time-display');
+        
+        // Your timezone (Stockholm, Sweden - UTC+1/UTC+2)
+        const yourTimezone = 'Europe/Stockholm';
+        const yourTime = new Date().toLocaleTimeString('en-US', {
+            timeZone: yourTimezone,
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit'
+        });
+        
+        // Visitor's local time
+        const visitorTime = new Date().toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit'
+        });
+        
+        timeDisplay.textContent = `${yourTime} my time is ${visitorTime} for you.`;
     }
     
-    .social-links {
-        gap: 1rem;
+    // Update time immediately and every minute
+    updateTimeDisplay();
+    setInterval(updateTimeDisplay, 60000);
+
+    // Spotify integration using Lanyard API - custom implementation
+    const spotifyContent = document.getElementById('spotify-content');
+    const DISCORD_USER_ID = '268826493377839106'; // Your Discord User ID
+
+    let currentSpotifyData = null;
+    let durationUpdateInterval = null;
+
+    async function updateSpotifyData() {
+        try {
+            console.log('Fetching Spotify data from Lanyard...');
+
+            const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Lanyard response:', data);
+
+                if (data.success && data.data) {
+                    const userData = data.data;
+
+                    // Check if user is listening to Spotify
+                    if (userData.listening_to_spotify && userData.spotify) {
+                        const spotify = userData.spotify;
+                        console.log('Spotify data found:', spotify);
+
+                        // Store current Spotify data for real-time updates
+                        currentSpotifyData = spotify;
+                        
+                        // Start real-time duration updates
+                        startDurationUpdates();
+
+                        // Display Spotify activity
+                        updateSpotifyDisplay();
+                    } else {
+                        // Check activities array for Spotify activity
+                        let spotifyActivity = null;
+                        if (userData.activities && userData.activities.length > 0) {
+                            spotifyActivity = userData.activities.find(activity =>
+                                activity.name === 'Spotify' ||
+                                activity.type === 2 || // Activity type 2 is usually Spotify
+                                (activity.application_id && activity.application_id === 'spotify:1')
+                            );
+                        }
+
+                        if (spotifyActivity && spotifyActivity.details) {
+                            console.log('Spotify activity found in activities:', spotifyActivity);
+
+                            // Display Spotify activity from activities array
+                            spotifyContent.innerHTML = `
+                                <div class="spotify-track">
+                                    <div class="spotify-album-art">
+                                        <img src="https://via.placeholder.com/50x50/1db954/ffffff?text=🎵" alt="Album Art">
+                                    </div>
+                                    <div class="spotify-info">
+                                        <div class="spotify-song">${spotifyActivity.details || 'Unknown Song'}</div>
+                                        <div class="spotify-artist">${spotifyActivity.state || 'Unknown Artist'}</div>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            // Not listening to Spotify
+                            console.log('Not listening to Spotify');
+                            currentSpotifyData = null;
+                            stopDurationUpdates();
+                            showNotPlaying();
+                        }
+                    }
+                } else {
+                    console.log('Lanyard data not available');
+                    currentSpotifyData = null;
+                    stopDurationUpdates();
+                    showNotPlaying();
+                }
+            } else {
+                console.log('Failed to fetch Lanyard data');
+                currentSpotifyData = null;
+                stopDurationUpdates();
+                showNotPlaying();
+            }
+        } catch (error) {
+            console.error('Lanyard error:', error);
+            currentSpotifyData = null;
+            stopDurationUpdates();
+            showNotPlaying();
+        }
+    }
+
+    function updateSpotifyDisplay() {
+        if (!currentSpotifyData) return;
+
+        // Calculate duration and progress if available
+        let durationText = '';
+        if (currentSpotifyData.timestamps && currentSpotifyData.timestamps.start) {
+            const currentTime = Date.now() - currentSpotifyData.timestamps.start;
+            const duration = currentSpotifyData.timestamps.end ? currentSpotifyData.timestamps.end - currentSpotifyData.timestamps.start : null;
+
+            if (duration) {
+                const currentSeconds = Math.floor(currentTime / 1000);
+                const totalSeconds = Math.floor(duration / 1000);
+
+                // Ensure we don't show negative time or time beyond the song
+                const clampedCurrentSeconds = Math.max(0, Math.min(currentSeconds, totalSeconds));
+
+                const currentMinutes = Math.floor(clampedCurrentSeconds / 60);
+                const currentSecs = clampedCurrentSeconds % 60;
+                const totalMinutes = Math.floor(totalSeconds / 60);
+                const totalSecs = totalSeconds % 60;
+
+                durationText = `${currentMinutes}:${currentSecs.toString().padStart(2, '0')} / ${totalMinutes}:${totalSecs.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Display Spotify activity
+        spotifyContent.innerHTML = `
+            <div class="spotify-track">
+                <div class="spotify-album-art">
+                    <img src="${currentSpotifyData.album_art_url || 'https://via.placeholder.com/50x50/1db954/ffffff?text=🎵'}" alt="Album Art">
+                </div>
+                <div class="spotify-info">
+                    <div class="spotify-song">${currentSpotifyData.song}</div>
+                    <div class="spotify-artist">${currentSpotifyData.artist}</div>
+                    ${durationText ? `<div class="spotify-duration">${durationText}</div>` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    function startDurationUpdates() {
+        // Clear any existing interval
+        stopDurationUpdates();
+        
+        // Update duration every second
+        durationUpdateInterval = setInterval(() => {
+            if (currentSpotifyData) {
+                updateSpotifyDisplay();
+            }
+        }, 1000);
+    }
+
+    function stopDurationUpdates() {
+        if (durationUpdateInterval) {
+            clearInterval(durationUpdateInterval);
+            durationUpdateInterval = null;
+        }
     }
     
-    .social-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+    function showNotPlaying() {
+        spotifyContent.innerHTML = `
+            <div class="spotify-not-playing">
+                <i class="fas fa-music"></i>
+                <span>I'm not listening to anything right now</span>
+            </div>
+        `;
     }
-} 
+    
+    // Update Spotify data immediately and every 30 seconds
+    updateSpotifyData();
+    setInterval(updateSpotifyData, 30000);
+    
+    // Add click to refresh functionality
+    spotifyContent.addEventListener('click', function() {
+        // Refresh the Lanyard iframe
+        updateSpotifyData();
+    });
+
+    // Discord Server integration
+    const discordContent = document.getElementById('discord-content');
+    const DISCORD_SERVER_ID = '1266369006248394752'; // Your Discord server ID
+    
+    async function updateDiscordData() {
+        try {
+            console.log('Fetching Discord server data...');
+            
+            let discordData = null;
+            
+            // Try multiple approaches to get Discord server data
+            try {
+                // Approach 1: Try using your Python bot API (most reliable)
+                const BOT_API_URL = 'http://localhost:5000/api/server-stats'; // Update with your bot's URL
+                
+                try {
+                    const botResponse = await fetch(BOT_API_URL, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (botResponse.ok) {
+                        const botData = await botResponse.json();
+                        console.log('Bot API data:', botData);
+                        
+                        discordData = {
+                            name: botData.name || "Tech's Community",
+                            icon: botData.icon || null,
+                            member_count: botData.member_count || 0,
+                            approximate_member_count: botData.member_count || 0,
+                            approximate_presence_count: botData.online_count || 0,
+                            vanity_url_code: "sWeYyBKhFW"
+                        };
+                        
+                        console.log('Real Discord data fetched from bot API:', discordData);
+                    } else {
+                        console.log('Bot API not accessible, trying widget API...');
+                    }
+                } catch (botError) {
+                    console.log('Bot API not available:', botError.message);
+                }
+                
+                // Approach 2: Try the widget API (if bot API failed)
+                if (!discordData) {
+                    const widgetResponse = await fetch(`https://discord.com/api/v10/guilds/${DISCORD_SERVER_ID}/widget.json`);
+                    
+                    if (widgetResponse.ok) {
+                        const widgetData = await widgetResponse.json();
+                        console.log('Widget data:', widgetData);
+                        
+                        discordData = {
+                            name: widgetData.name,
+                            icon: null,
+                            member_count: widgetData.presence_count || 0,
+                            approximate_member_count: widgetData.presence_count || 0,
+                            approximate_presence_count: widgetData.presence_count || 0,
+                            vanity_url_code: "sWeYyBKhFW"
+                        };
+                        
+                        console.log('Real Discord data fetched from widget:', discordData);
+                    } else {
+                        console.log('Widget API not accessible (403/401) - Enable widget in server settings for real-time data');
+                    }
+                }
+                
+                // Approach 3: Use fallback data if all APIs fail
+                if (!discordData) {
+                    discordData = {
+                        name: "Tech's Community", // Update this with your actual server name
+                        icon: null,
+                        member_count: 150, // Update this with your actual member count
+                        approximate_member_count: 150, // Update this with your actual member count
+                        approximate_presence_count: 23, // Update this with your actual online count
+                        vanity_url_code: "sWeYyBKhFW"
+                    };
+                    
+                    console.log('Using configurable fallback data:', discordData);
+                }
+            } catch (e) {
+                console.log('Discord API error:', e.message);
+                
+                // Use fallback data if all APIs fail
+                discordData = {
+                    name: "Tech's Community",
+                    icon: null,
+                    member_count: 150,
+                    approximate_member_count: 150,
+                    approximate_presence_count: 23,
+                    vanity_url_code: "sWeYyBKhFW"
+                };
+            }
+            
+            // Generate invite URL using your actual invite code
+            const inviteUrl = `https://discord.gg/sWeYyBKhFW`;
+            
+            // Use icon URL directly from API response (it's already a full URL)
+            const iconUrl = discordData.icon || 'https://cdn.discordapp.com/embed/avatars/0.png';
+            
+            // Display Discord server data
+            discordContent.innerHTML = `
+                <div class="discord-server">
+                    <div class="discord-server-icon">
+                        <img src="${iconUrl}" alt="Server Icon" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                    </div>
+                    <div class="discord-server-info">
+                        <div class="discord-server-name">${discordData.name}</div>
+                        <div class="discord-server-stats">${discordData.approximate_presence_count || 0} online • ${discordData.approximate_member_count || discordData.member_count || 0} members</div>
+                    </div>
+                    <a href="${inviteUrl}" target="_blank" class="discord-join-button">
+                        Join
+                    </a>
+                </div>
+            `;
+            
+        } catch (error) {
+            console.error('Discord error:', error);
+            showDiscordNotAvailable();
+        }
+    }
+    
+    // Update Discord data immediately and every 60 seconds
+    updateDiscordData();
+    setInterval(updateDiscordData, 60000);
+    
+    // Add click to refresh functionality for Discord
+    discordContent.addEventListener('click', function() {
+        updateDiscordData();
+    });
+
+    // TECH reveal effect
+    const titleElement = document.querySelector('.title');
+    const bioContent = document.querySelector('.bio-content');
+    
+    // Track mouse position globally but only update TECH when hovering over the container
+    document.addEventListener('mousemove', function(e) {
+        const containerRect = bioContent.getBoundingClientRect();
+        const rect = titleElement.getBoundingClientRect();
+        
+        // Calculate mouse position relative to the element's bounding box
+        // Since the element uses transform: translate(-50%, -50%), we need to account for this
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Expand the tracking area to account for TECH text extending beyond container
+        const expandedLeft = containerRect.left - 100;   // Larger buffer on left
+        const expandedRight = containerRect.right + 100; // Larger buffer on right
+        const expandedTop = containerRect.top - 50;      // Buffer on top
+        const expandedBottom = containerRect.bottom + 50; // Buffer on bottom
+        
+        // Use expanded area for tracking since TECH text extends beyond container
+        if (e.clientX >= expandedLeft && e.clientX <= expandedRight && 
+            e.clientY >= expandedTop && e.clientY <= expandedBottom) {
+            titleElement.style.setProperty('--mouse-x', x + 'px');
+            titleElement.style.setProperty('--mouse-y', y + 'px');
+        } else {
+            // Hide the reveal when mouse is outside expanded area
+            titleElement.style.setProperty('--mouse-x', '-100px');
+            titleElement.style.setProperty('--mouse-y', '-100px');
+        }
+    });
+}); 
