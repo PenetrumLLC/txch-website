@@ -70,19 +70,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animated title effect
     const animatedTitle = document.getElementById('animated-title');
-    const titleText = "Tech The Goat";
-    let titleIndex = 0;
-    
-    function typeTitle() {
-        if (titleIndex < titleText.length) {
-            animatedTitle.textContent = titleText.substring(0, titleIndex + 1);
-            titleIndex++;
-            setTimeout(typeTitle, 150);
+    if (animatedTitle) {
+        const titleText = "Tech The Goat";
+        let titleIndex = 0;
+        let isDeleting = false;
+        let isWaiting = false;
+        
+        // Set initial title to prevent "index.html" flash
+        animatedTitle.textContent = titleText;
+        
+        function typeTitle() {
+            if (isWaiting) return;
+            
+            if (!isDeleting) {
+                // Typing
+                if (titleIndex < titleText.length) {
+                    animatedTitle.textContent = titleText.substring(0, titleIndex + 1);
+                    titleIndex++;
+                    setTimeout(typeTitle, 200);
+                } else {
+                    // Finished typing, wait 5 seconds then start deleting
+                    setTimeout(() => {
+                        isDeleting = true;
+                        typeTitle();
+                    }, 5000);
+                }
+            } else {
+                // Deleting
+                if (titleIndex > 0) {
+                    animatedTitle.textContent = titleText.substring(0, titleIndex - 1);
+                    titleIndex--;
+                    setTimeout(typeTitle, 150);
+                } else {
+                    // Finished deleting, keep a space to prevent "index.html" flash
+                    animatedTitle.textContent = ' ';
+                    // Wait 3 seconds then start typing again
+                    isDeleting = false;
+                    isWaiting = true;
+                    setTimeout(() => {
+                        isWaiting = false;
+                        typeTitle();
+                    }, 3000);
+                }
+            }
         }
+        
+        // Start title animation after a longer delay
+        setTimeout(typeTitle, 3000);
     }
-    
-    // Start title animation after a short delay
-    setTimeout(typeTitle, 1000);
 
     // Add some interactive effects
     const socialIcons = document.querySelectorAll('.social-icon');
