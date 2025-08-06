@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Entry overlay functionality
+    const entryOverlay = document.getElementById('entry-overlay');
+    const bioPage = document.getElementById('bio-page');
+    
+    // Show bio page initially so overlay can blur the background
+    bioPage.style.opacity = '1';
+    
+    // Entry overlay click handler
+    entryOverlay.addEventListener('click', function() {
+        // Start audio immediately
+        startAudio();
+        
+        // Fade out overlay
+        entryOverlay.classList.add('fade-out');
+        
+        // Show bio page
+        bioPage.style.transition = 'opacity 0.5s ease';
+        bioPage.style.opacity = '1';
+        
+        // Remove overlay after animation
+        setTimeout(() => {
+            entryOverlay.style.display = 'none';
+        }, 500);
+    });
+    
     // Typing effect for quote
     const quoteElement = document.querySelector('.quote');
     const fullQuote = '"Believe, and you will witness the incredible glory of God unfold in your life."';
@@ -42,6 +67,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start the typing effect
     typeQuote();
+    
+    // Animated title effect
+    const animatedTitle = document.getElementById('animated-title');
+    const titleText = "Tech The Goat";
+    let titleIndex = 0;
+    
+    function typeTitle() {
+        if (titleIndex < titleText.length) {
+            animatedTitle.textContent = titleText.substring(0, titleIndex + 1);
+            titleIndex++;
+            setTimeout(typeTitle, 150);
+        }
+    }
+    
+    // Start title animation after a short delay
+    setTimeout(typeTitle, 1000);
 
     // Add some interactive effects
     const socialIcons = document.querySelectorAll('.social-icon');
@@ -55,18 +96,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Sound control toggle (placeholder for future functionality)
-    const soundControl = document.querySelector('.sound-control');
-    let soundEnabled = true;
+    // Audio player functionality
+    const audio = document.getElementById('background-audio');
+    const soundControl = document.getElementById('sound-control');
+    const volumeSlider = document.getElementById('volume-slider');
+    const soundIcon = soundControl.querySelector('i');
     
-    soundControl.addEventListener('click', function() {
-        soundEnabled = !soundEnabled;
-        const icon = this.querySelector('i');
+    let isMuted = false;
+    let previousVolume = 0.5;
+    let audioStarted = false;
+    
+    // Initialize audio
+    audio.volume = 0.5;
+    
+    // Function to start audio
+    function startAudio() {
+        if (!audioStarted) {
+            audio.play().then(() => {
+                audioStarted = true;
+                console.log('Audio started successfully');
+            }).catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+    }
+    
+    // Sound control click - mute/unmute
+    soundControl.addEventListener('click', function(e) {
+        // Don't trigger if clicking on volume slider
+        if (e.target === volumeSlider) return;
         
-        if (soundEnabled) {
-            icon.className = 'fas fa-volume-up';
+        // Start audio if it hasn't started yet
+        if (!audioStarted) {
+            startAudio();
+        }
+        
+        if (isMuted) {
+            // Unmute
+            audio.muted = false;
+            audio.volume = previousVolume;
+            volumeSlider.value = previousVolume * 100;
+            soundIcon.className = 'fas fa-volume-up';
+            isMuted = false;
         } else {
-            icon.className = 'fas fa-volume-mute';
+            // Mute
+            previousVolume = audio.volume;
+            audio.muted = true;
+            volumeSlider.value = 0;
+            soundIcon.className = 'fas fa-volume-mute';
+            isMuted = true;
+        }
+    });
+    
+    // Volume slider control
+    volumeSlider.addEventListener('input', function() {
+        const volume = this.value / 100;
+        audio.volume = volume;
+        audio.muted = false;
+        isMuted = false;
+        
+        // Update icon based on volume level
+        if (volume === 0) {
+            soundIcon.className = 'fas fa-volume-mute';
+            isMuted = true;
+        } else if (volume < 0.5) {
+            soundIcon.className = 'fas fa-volume-down';
+        } else {
+            soundIcon.className = 'fas fa-volume-up';
         }
     });
 
@@ -251,6 +347,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Update the header text
+        const spotifyHeader = document.querySelector('.spotify-header span');
+        if (spotifyHeader) {
+            spotifyHeader.textContent = 'Now Playing';
+        }
+        
         // Display Spotify activity
         spotifyContent.innerHTML = `
             <div class="spotify-track">
@@ -286,10 +388,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showNotPlaying() {
+        // Update the header text
+        const spotifyHeader = document.querySelector('.spotify-header span');
+        if (spotifyHeader) {
+            spotifyHeader.textContent = 'Not Playing';
+        }
+        
         spotifyContent.innerHTML = `
             <div class="spotify-not-playing">
                 <i class="fas fa-music"></i>
-                <span>I'm not listening to anything right now</span>
+                <span>Not Playing Anything</span>
             </div>
         `;
     }
