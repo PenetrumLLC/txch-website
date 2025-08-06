@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech - Bio</title>
+    <title>Tech The Goat</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Entry Overlay -->
+    <div id="entry-overlay" class="entry-overlay">
+        <div class="entry-content">
+            <i class="fas fa-play entry-symbol"></i>
+        </div>
+    </div>
+
     <!-- Main Bio Page -->
     <div id="bio-page" class="bio-page">
         <!-- Background Video -->
@@ -34,7 +41,7 @@
 
             <!-- Header Section -->
             <div class="header">
-                <h1 class="title">Tech</h1>
+                <h1 class="title" id="animated-title">Tech The Goat</h1>
                 <div class="location">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Stockholm, Sweden</span>
@@ -55,7 +62,7 @@
                 <a href="https://www.youtube.com/@txqh" target="_blank" class="social-icon youtube">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a href="https://github.com/txvch" target="_blank" class="social-icon github">
+                <a href="https://github.com/txchnology" target="_blank" class="social-icon github">
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://instagram.com/tai.eth" target="_blank" class="social-icon instagram">
@@ -104,13 +111,20 @@
             </div>
         </div>
 
+        <!-- Audio Player -->
+        <audio id="background-audio" loop>
+            <source src="https://github.com/txchnology/test/releases/download/video/Namnlos.video.Gjord.med.Clipchamp.m4a" type="audio/mp4">
+        </audio>
+        
         <!-- Sound Control -->
-        <div class="sound-control">
+        <div class="sound-control" id="sound-control">
             <i class="fas fa-volume-up"></i>
+            <div class="volume-slider">
+                <input type="range" id="volume-slider" min="0" max="100" value="50" class="volume-range">
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
