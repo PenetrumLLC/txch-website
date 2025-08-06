@@ -51,7 +51,6 @@ body {
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
 }
 
-/* Main bio page container */
 .bio-page {
     position: fixed;
     top: 0;
@@ -64,7 +63,6 @@ body {
     opacity: 1;
 }
 
-/* Background styling */
 .bio-background {
     position: absolute;
     top: 0;
@@ -87,10 +85,9 @@ body {
     opacity: 0.5;
 }
 
-/* Main content container */
 .bio-content {
     position: relative;
-    z-index: 5;
+    z-index: 1;
     max-width: 600px;
     margin: 0 auto;
     padding: 3rem;
@@ -107,7 +104,6 @@ body {
     overflow: visible;
 }
 
-/* Section ordering */
 .profile-section {
     order: 1;
     margin-bottom: 0;
@@ -150,7 +146,6 @@ body {
     margin-bottom: 0.2rem;
 }
 
-/* TECH title with glow effect */
 .title {
     font-size: 12rem;
     font-weight: 200;
@@ -164,7 +159,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 0;
+    z-index: 2;
     pointer-events: none;
     user-select: none;
     width: 100vw;
@@ -200,14 +195,13 @@ body {
                          rgba(255, 255, 255, 0.4) 60%, 
                          rgba(255, 255, 255, 0) 100%);
     -webkit-mask: radial-gradient(circle 100px at var(--mouse-x, 0px) var(--mouse-y, 0px), 
-                                 rgba(255, 255, 255, 1) 0%, 
-                                 rgba(255, 255, 255, 0.8) 30%, 
-                                 rgba(255, 255, 255, 0.4) 60%, 
-                                 rgba(255, 255, 255, 0) 100%);
+                                rgba(255, 255, 255, 1) 0%, 
+                                rgba(255, 255, 255, 0.8) 30%, 
+                                rgba(255, 255, 255, 0.4) 60%, 
+                                rgba(255, 255, 255, 0) 100%);
     transition: all 0.1s ease;
 }
 
-/* Quote styling */
 .quote {
     font-size: 1rem;
     line-height: 1.7;
@@ -240,7 +234,6 @@ body {
     letter-spacing: 0.02em;
 }
 
-/* Location styling */
 .location {
     display: flex;
     align-items: center;
@@ -257,7 +250,6 @@ body {
     text-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
 }
 
-/* Profile section styling */
 .profile-section {
     margin-bottom: 0;
     position: relative;
@@ -288,7 +280,6 @@ body {
     object-fit: cover;
 }
 
-/* Status indicator styling */
 .status-indicator {
     position: absolute;
     bottom: 5px;
@@ -343,7 +334,6 @@ body {
     color: #ffffff;
 }
 
-/* Username and bio styling */
 .username {
     font-size: 1.5rem;
     font-weight: 400;
@@ -803,6 +793,8 @@ body {
     from, to { border-color: transparent; }
     50% { border-color: rgba(255, 255, 255, 0.8); }
 }
+
+
 
 /* Responsive design */
 @media (max-width: 768px) {
