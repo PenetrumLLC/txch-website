@@ -24,6 +24,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     });
     
+    // Banner functionality
+    const floatingBanner = document.getElementById('floating-banner');
+    
+    // Info button functionality
+    const infoButton = document.getElementById('info-button');
+    const bioContentContainer = document.querySelector('.bio-content');
+    
+    if (infoButton) {
+        infoButton.addEventListener('click', function() {
+            if (bioContentContainer.classList.contains('info-active')) {
+                // Close info view
+                bioContentContainer.classList.remove('info-active');
+                infoButton.classList.remove('close');
+                infoButton.innerHTML = '<i class="fas fa-info"></i>';
+                document.body.classList.remove('info-modal-active');
+            } else {
+                // Open info view
+                bioContentContainer.classList.add('info-active');
+                infoButton.classList.add('close');
+                infoButton.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.classList.add('info-modal-active');
+            }
+        });
+    }
+    
     // Typing effect for quote
     const quoteElement = document.querySelector('.quote');
     const fullQuote = '"Believe, and you will witness the incredible glory of God unfold in your life."';
@@ -73,16 +98,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (animatedTitle) {
         const titleText = "Tech The Goat";
         let titleIndex = 0;
-        let isDeleting = false;
-        let isWaiting = false;
+        let isTitleDeleting = false;
+        let isTitleWaiting = false;
         
         // Set initial title to prevent "index.html" flash
         animatedTitle.textContent = titleText;
         
         function typeTitle() {
-            if (isWaiting) return;
+            if (isTitleWaiting) return;
             
-            if (!isDeleting) {
+            if (!isTitleDeleting) {
                 // Typing
                 if (titleIndex < titleText.length) {
                     animatedTitle.textContent = titleText.substring(0, titleIndex + 1);
@@ -91,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     // Finished typing, wait 5 seconds then start deleting
                     setTimeout(() => {
-                        isDeleting = true;
+                        isTitleDeleting = true;
                         typeTitle();
                     }, 5000);
                 }
@@ -105,10 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Finished deleting, keep a space to prevent "index.html" flash
                     animatedTitle.textContent = ' ';
                     // Wait 3 seconds then start typing again
-                    isDeleting = false;
-                    isWaiting = true;
+                    isTitleDeleting = false;
+                    isTitleWaiting = true;
                     setTimeout(() => {
-                        isWaiting = false;
+                        isTitleWaiting = false;
                         typeTitle();
                     }, 3000);
                 }
@@ -119,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(typeTitle, 3000);
     }
 
-    // Add some interactive effects
+    // Add some interactive effects - optimized with throttling
     const socialIcons = document.querySelectorAll('.social-icon');
     socialIcons.forEach(icon => {
         icon.addEventListener('mouseenter', function() {
@@ -201,23 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add view count animation
-    const viewCount = document.querySelector('.view-count span');
-    if (viewCount) {
-        const finalCount = 1051;
-        let currentCount = 0;
-        const increment = Math.ceil(finalCount / 50);
-        
-        const counter = setInterval(() => {
-            currentCount += increment;
-            if (currentCount >= finalCount) {
-                currentCount = finalCount;
-                clearInterval(counter);
-            }
-            viewCount.textContent = currentCount.toLocaleString();
-        }, 50);
-    }
-
     // Add loading animation for profile picture
     const profileImg = document.querySelector('.profile-picture img');
     if (profileImg) {
@@ -271,21 +279,26 @@ document.addEventListener('DOMContentLoaded', function() {
     updateTimeDisplay();
     setInterval(updateTimeDisplay, 60000);
 
-    // Spotify integration using Lanyard API - custom implementation
+    // Spotify integration using Lanyard API - optimized implementation
     const spotifyContent = document.getElementById('spotify-content');
-    const DISCORD_USER_ID = '268826493377839106'; // Your Discord User ID
+    const DISCORD_USER_ID = '268826493377839106';
 
     let currentSpotifyData = null;
     let durationUpdateInterval = null;
+    let lastSpotifyUpdate = 0;
+    const SPOTIFY_UPDATE_INTERVAL = 30000; // 30 seconds
 
     async function updateSpotifyData() {
-        try {
-            console.log('Fetching Spotify data from Lanyard...');
+        const now = Date.now();
+        if (now - lastSpotifyUpdate < SPOTIFY_UPDATE_INTERVAL) {
+            return; // Skip if too soon
+        }
+        lastSpotifyUpdate = now;
 
+        try {
             const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
             if (response.ok) {
                 const data = await response.json();
-                console.log('Lanyard response:', data);
 
                 if (data.success && data.data) {
                     const userData = data.data;
@@ -293,15 +306,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Check if user is listening to Spotify
                     if (userData.listening_to_spotify && userData.spotify) {
                         const spotify = userData.spotify;
-                        console.log('Spotify data found:', spotify);
-
-                        // Store current Spotify data for real-time updates
                         currentSpotifyData = spotify;
-                        
-                        // Start real-time duration updates
                         startDurationUpdates();
-
-                        // Display Spotify activity
                         updateSpotifyDisplay();
                     } else {
                         // Check activities array for Spotify activity
@@ -309,15 +315,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (userData.activities && userData.activities.length > 0) {
                             spotifyActivity = userData.activities.find(activity =>
                                 activity.name === 'Spotify' ||
-                                activity.type === 2 || // Activity type 2 is usually Spotify
+                                activity.type === 2 ||
                                 (activity.application_id && activity.application_id === 'spotify:1')
                             );
                         }
 
                         if (spotifyActivity && spotifyActivity.details) {
-                            console.log('Spotify activity found in activities:', spotifyActivity);
-
-                            // Display Spotify activity from activities array
                             spotifyContent.innerHTML = `
                                 <div class="spotify-track">
                                     <div class="spotify-album-art">
@@ -330,27 +333,22 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             `;
                         } else {
-                            // Not listening to Spotify
-                            console.log('Not listening to Spotify');
                             currentSpotifyData = null;
                             stopDurationUpdates();
                             showNotPlaying();
                         }
                     }
                 } else {
-                    console.log('Lanyard data not available');
                     currentSpotifyData = null;
                     stopDurationUpdates();
                     showNotPlaying();
                 }
             } else {
-                console.log('Failed to fetch Lanyard data');
                 currentSpotifyData = null;
                 stopDurationUpdates();
                 showNotPlaying();
             }
         } catch (error) {
-            console.error('Lanyard error:', error);
             currentSpotifyData = null;
             stopDurationUpdates();
             showNotPlaying();
@@ -472,25 +470,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show Discord server immediately
     showDiscordServer();
 
-    // TECH reveal effect
+    // TECH reveal effect - optimized with throttling
     const titleElement = document.querySelector('.title');
     const bioContent = document.querySelector('.bio-content');
     
-    // Track mouse position globally but only update TECH when hovering over the container
-    document.addEventListener('mousemove', function(e) {
+    // Throttle function for better performance
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+    
+    // Track mouse position with throttling for better performance
+    const throttledMouseMove = throttle(function(e) {
         const containerRect = bioContent.getBoundingClientRect();
         const rect = titleElement.getBoundingClientRect();
         
         // Calculate mouse position relative to the element's bounding box
-        // Since the element uses transform: translate(-50%, -50%), we need to account for this
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
         // Expand the tracking area to account for TECH text extending beyond container
-        const expandedLeft = containerRect.left - 100;   // Larger buffer on left
-        const expandedRight = containerRect.right + 100; // Larger buffer on right
-        const expandedTop = containerRect.top - 50;      // Buffer on top
-        const expandedBottom = containerRect.bottom + 50; // Buffer on bottom
+        const expandedLeft = containerRect.left - 100;
+        const expandedRight = containerRect.right + 100;
+        const expandedTop = containerRect.top - 50;
+        const expandedBottom = containerRect.bottom + 50;
         
         // Use expanded area for tracking since TECH text extends beyond container
         if (e.clientX >= expandedLeft && e.clientX <= expandedRight && 
@@ -502,5 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
             titleElement.style.setProperty('--mouse-x', '-100px');
             titleElement.style.setProperty('--mouse-y', '-100px');
         }
-    });
+    }, 16); // ~60fps
+    
+    document.addEventListener('mousemove', throttledMouseMove);
 }); 
